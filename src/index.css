@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.btn-purple-light {
+  background-color: #ab65d0 !important;
+  border: solid 2.5px #ab65d0 !important;
+}
+
+.btn-purple-light:hover {
+  background-color: transparent !important;
+  color: #ab65d0 !important;
+}

@@ -1,38 +1,144 @@
+body {
+  font-family: Lato, sans-serif !important;
+}
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.purple {
+  color: #6e2f9a !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.purple-light {
+  color: #bc67ec !important;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.bg-purple {
+  background: #6e2f9a !important;
+}
+
+.bg-purple-light {
+  background: #bc67ec !important;
+}
+
+.bg-grey {
+  background: #1f1f1f;
+}
+
+.bg-gradient-purple {
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#dc89e8+0,b856d3+19,9040cc+100 */
+  background: rgb(220, 137, 232);
+  /* Old browsers */
+  background: -moz-linear-gradient(-45deg, rgb(220, 137, 232) 0%, rgba(184, 86, 211, 1) 19%, rgb(144, 64, 204) 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg, rgba(220, 137, 232, 1) 0%, rgba(184, 86, 211, 1) 19%, rgba(144, 64, 204, 1) 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg, rgba(220, 137, 232, 1) 0%, rgba(184, 86, 211, 1) 19%, rgba(144, 64, 204, 1) 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dc89e8', endColorstr='#9040cc', GradientType=1);
+  /* IE6-9 fallback on horizontal gradient */
+}
+
+.react-calendar {
+  width: 400px;
+  max-width: 100%;
+  background-color: #fff;
+  color: #222;
+  border-radius: 8px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.125em;
+}
+
+.react-calendar__navigation button {
+  color: #6f48eb;
+  min-width: 44px;
+  background: none;
+  font-size: 16px;
+  margin-top: 8px;
+}
+
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+  background-color: #f8f8fa;
+}
+
+.react-calendar__navigation button[disabled] {
+  background-color: #f0f0f0;
+}
+
+abbr[title] {
+  text-decoration: none;
+}
+
+/* .react-calendar__month-view__days__day--weekend {
+ color: #d10000;
+} */
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+  background: #f8f8fa;
+  color: #ab65d0;
+  border-radius: 6px;
+}
+
+.react-calendar__tile--now {
+  background: #6f48eb33;
+  border-radius: 6px;
+  font-weight: bold;
+  color: #ab65d0;
+}
+
+.react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus {
+  background: #6f48eb33;
+  border-radius: 6px;
+  font-weight: bold;
+  color: #ab65d0;
+}
+
+.react-calendar__tile--hasActive:enabled:hover,
+.react-calendar__tile--hasActive:enabled:focus {
+  background: #f8f8fa;
+}
+
+.react-calendar__tile--active {
+  background: #ab65d0;
+  border-radius: 6px;
+  font-weight: bold;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+  background: #ab65d0;
+  color: white;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.react-calendar--selectRange .react-calendar__tile--hover {
+  background-color: #f8f8fa;
+}
+
+.react-calendar__tile--range {
+  background: #f8f8fa;
+  color: #ab65d0;
+  border-radius: 0;
+}
+
+.react-calendar__tile--rangeStart {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  background: #ab65d0;
+  color: white;
+}
+
+.react-calendar__tile--rangeEnd {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  background: #ab65d0;
+  color: white;
 }
