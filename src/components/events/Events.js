@@ -15,6 +15,7 @@ const Event = () => {
     useEffect(() => {
         const newStartDate = dayjs(`${rootState.start.getFullYear()}, ${rootState.start.getMonth()}, ${rootState.start.getDate()}, ${rootState.start.getUTCHours() +':'+ rootState.start.getUTCMinutes()}`);
         const newEndDate = dayjs(`${rootState.end.getFullYear()}, ${rootState.end.getMonth()}, ${rootState.end.getDate()}, ${rootState.end.getUTCHours() +':'+ rootState.end.getUTCMinutes()}`);
+    
         if (linkOpen == 'outlook') {
             setLink(`https://outlook.live.com/calendar/0/action/compose?allday=${rootState.allDay}&body=${linkRegex(rootState.description)}&enddt=${rootState.allDay? dayjs(rootState.end).format('YYYY-MM-DD[T04%3A00%3A00%2B00%3A00]') : newEndDate.format('YYYY-MM-DD[T]HH[%3A]mm[%3A00%2B00%3A00]')}&location=${linkRegex(rootState.location)}&path=%2Fcalendar%2Faction%2Fcompose&rru=addevent&startdt=${rootState.allDay? dayjs(rootState.start).format('YYYY-MM-DD[T04%3A00%3A00%2B00%3A00]') : newStartDate.format('YYYY-MM-DD[T]HH[%3A]mm[%3A00%2B00%3A00]')}&subject=${linkRegex(rootState.title)}`);            
         }
@@ -56,13 +57,39 @@ const Event = () => {
         return title;
     }
 
-    const onIcsClick = () => {
-        setLink(false);
-        const cal_single = ics();
-    //  cal_single.addEvent(subject, description, location, begin, end, recurrenceRule);
-        cal_single.addEvent(rootState.title, rootState.description, rootState.location, rootState.start, rootState.end);
-        cal_single.download(rootState.title);
-    }
+    /*
+        * Creates and downloads an ICS file
+        * @params {string} timeZone - In the format America/New_York
+        * @params {object} startTime - Vaild JS Date object in the event timezone
+        * @params {object} endTime - Vaild JS Date object in the event timezone
+        * @params {string} title
+        * @params {string} description
+        * @params {string} venueName
+        * @params {string} address
+        * @params {string} city
+        * @params {string} state
+    */
+
+const icsBody = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:Calendar
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VTIMEZONE
+TZID:${Intl.DateTimeFormat().resolvedOptions().timeZone}
+END:VTIMEZONE
+BEGIN:VEVENT
+SUMMARY:${rootState.title}
+UID:@DefaultSEQUENCE:0
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+DTSTART;TZID=${Intl.DateTimeFormat().resolvedOptions().timeZone}:${rootState.allDay ? dayjs(rootState.start).format('YYYYMMDD') : dayjs(rootState.start).format('YYYYMMDDTHHmm[00]')}
+DTEND;TZID=${Intl.DateTimeFormat().resolvedOptions().timeZone}:${rootState.allDay ? dayjs(rootState.end).format('YYYYMMDD') : dayjs(rootState.end).format('YYYYMMDDTHHmm[00]')}
+DTSTAMP:new Date()
+LOCATION:${rootState.location}
+DESCRIPTION:${rootState.description}
+END:VEVENT
+END:VCALENDAR`;
 
     return(        
         <Container className='event'>
@@ -78,7 +105,7 @@ const Event = () => {
                         <h3>{rootState.title}</h3>
                         <p><strong>Start:</strong> {dayjs(rootState.start).format('DD-MM-YYYY - HH:mm')} </p>
                         <p><strong>End:</strong> {dayjs(rootState.end).format('DD-MM-YYYY - HH:mm')}</p>
-                        { rootState.allDay? <p>'All day event'</p>:''}
+                        { rootState.allDay? <p>All day event</p>:''}
                     </div>
                 </Col>
             </Row>
@@ -124,17 +151,27 @@ const Event = () => {
             : false}
 
             <Row>
+                
+                
                 <Col className='d-flex justify-content-around mb-2 flex-wrap gap-1'>
                     <Button type="button" variant="primary" onClick={() => {
                         setLinkOpen('gmail');
                     }}>Gmail</Button>
+                
                     <Button type="button" variant="primary" onClick={() => {
                         setLinkOpen('outlook');
                     }}>Outlook</Button>
-                    <Button type="button" variant="primary" className='btn-purple-light' onClick={() => {
-                        onIcsClick();
-                        setLinkOpen(false);
-                    }}>Download .ics</Button>
+                
+                    <a
+                        href={`data:text/plain;charset=utf-8,` + encodeURIComponent(icsBody)}
+                        download={`${rootState.title}.ics`}
+                        rel="noopener noreferrer"
+                    >
+                        <Button type="button" variant="primary" className='btn-purple-light' onClick={() => {
+                            setLink(false);
+                            setLinkOpen(false);
+                        }}>Download .ics</Button>
+                    </a>
                 </Col>                
             </Row>
             

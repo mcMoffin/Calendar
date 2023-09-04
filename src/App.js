@@ -10,7 +10,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 const date = new Date();
-const language = window.navigator.userLanguage || window.navigator.language;
 
 function App() {
 
@@ -41,7 +40,7 @@ function App() {
     title: `Trip to 123 sesame street!`,
     location: '1900 Broadway, New York, NY 10023, United States',
     description: `Can you tell me how to get to Sesame Street?. Yes, Sesame Street is real, but it's inside a television studio in New York. And, no, we can't visit without special permission, and we can't go right now. Please stop asking so many questions, and put your socks back on!`,
-    timeZone:language,
+    timeZone:Intl.DateTimeFormat().resolvedOptions().timeZone,
     allDay: false,
     start: date,
     end: date,
